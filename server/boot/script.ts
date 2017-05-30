@@ -45,8 +45,6 @@ class Script {
     )
 
   }
-
-
 }
 
 module.exports = Script;
