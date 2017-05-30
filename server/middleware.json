@@ -39,6 +39,7 @@
         "${restApiRoot}"
       ]
     }
+
   },
   "files": {
     "loopback#static": [
