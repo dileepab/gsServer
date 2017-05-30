@@ -8,41 +8,49 @@ class Script {
     let Role = app.models.Role;
     let RoleMapping = app.models.RoleMapping;
 
-    user.create([
-        {
-          username: 'admin',
-          email: 'gramasewakasys@gmail.com',
-          password: 'admin',
-          userRole: 'admin',
-          emailVerified: true
-        }
-      ],
-
+    user.find({where:{username:'admin'}},
       (err: any, user: any) => {
         if (err) return console.log(err);
+        if (user.length === 0) {
 
-        //create the admin role
-        Role.create([{
-          name: 'admin'
-        }, {
-          name: 'gs',
-        },{
-          name: 'gm'
-        }], (err: any, roles: any) => {
-          if (err) return console.log(err);
+          user.create([
+              {
+                username: 'admin',
+                email: 'gramasewakasys@gmail.com',
+                password: 'admin',
+                userRole: 'admin',
+                emailVerified: true
+              }
+            ],
 
-          console.log(user[0].id);
+            (err: any, user: any) => {
+              if (err) return console.log(err);
 
-          //make bob an admin
-          roles[0].principals.create({
-            principalType: RoleMapping.USER,
-            principalId: user[0].id
-          }, (err: any, principal: any) => {
-            if (err) return console.log(err);
-          });
-        });
+              //create the admin role
+              Role.create([{
+                name: 'admin'
+              }, {
+                name: 'gs',
+              },{
+                name: 'gm'
+              }], (err: any, roles: any) => {
+                if (err) return console.log(err);
+
+                console.log(user[0].id);
+
+                //make bob an admin
+                roles[0].principals.create({
+                  principalType: RoleMapping.USER,
+                  principalId: user[0].id
+                }, (err: any, principal: any) => {
+                  if (err) return console.log(err);
+                });
+              });
+            }
+          )
+        }
       }
-    )
+    );
   }
 }
 
