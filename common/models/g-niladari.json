@@ -1,0 +1,86 @@
+{
+  "name": "GNiladari",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": {
+      "required": false
+    },
+    "Stats": [
+      {
+        "method": "stats",
+        "endpoint": "/stats",
+        "description": "Statistical information for GNiladari registers.",
+        "type": "model",
+        "count": {
+          "on": "createdAt",
+          "by": "index"
+        }
+      }
+    ]
+  },
+  "properties": {
+    "firstname": {
+      "type": "string",
+      "required": true
+    },
+    "lastname": {
+      "type": "string",
+      "required": true
+    },
+    "birthDate": {
+      "type": "date"
+    },
+    "gender": {
+      "type": "string"
+    },
+    "districtId": {
+      "type": "string"
+    },
+    "userRole": {
+      "type": "string",
+      "default": "gs"
+    },
+    "email": {
+      "type": {
+        "required": false
+      }
+    }
+  },
+  "validations": [],
+  "relations": {
+    "gNDivisions": {
+      "type": "hasOne",
+      "model": "GNDivision",
+      "foreignKey": ""
+    },
+    "people": {
+      "type": "hasMany",
+      "model": "Person",
+      "foreignKey": "gNiladariId"
+    },
+    "messages": {
+      "type": "hasMany",
+      "model": "message",
+      "foreignKey": "gsId"
+    }
+  },
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "find"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "findById"
+    }
+  ],
+  "methods": {}
+}

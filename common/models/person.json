@@ -1,0 +1,80 @@
+{
+  "name": "Person",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": {
+      "required": false
+    },
+    "Stats": [
+      {
+        "method": "stats",
+        "endpoint": "/stats",
+        "description": "Statistical information for Person registers.",
+        "type": "model",
+        "count": {
+          "on": "createdAt",
+          "by": "index"
+        }
+      }
+    ]
+  },
+  "properties": {
+    "firstname": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
+    },
+    "birthDate": {
+      "type": "date"
+    },
+    "gender": {
+      "type": "string"
+    },
+    "userRole": {
+      "type": "string",
+      "default": "gm"
+    },
+    "email": {
+      "type": {
+        "required": false
+      }
+    }
+  },
+  "validations": [],
+  "relations": {
+    "gNiladaris": {
+      "type": "hasOne",
+      "model": "GNiladari",
+      "foreignKey": ""
+    },
+    "gNDivisions": {
+      "type": "hasOne",
+      "model": "GNDivision",
+      "foreignKey": ""
+    },
+    "districts": {
+      "type": "hasOne",
+      "model": "District",
+      "foreignKey": ""
+    },
+    "messages": {
+      "type": "hasMany",
+      "model": "message",
+      "foreignKey": "gmId"
+    }
+  },
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "find"
+    }
+  ],
+  "methods": {}
+}

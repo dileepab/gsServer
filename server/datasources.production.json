@@ -1,0 +1,16 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "mongoDs": {
+    "host": "ds151451.mlab.com",
+    "port": 51451,
+    "url": "mongodb://admin:admin@ds151451.mlab.com:51451/gsonline",
+    "database": "gsonline",
+    "password": "admin",
+    "name": "mongoDs",
+    "user": "admin",
+    "connector": "mongodb"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "name": "message",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": {
+      "required": false
+    },
+    "Stats": [
+      {
+        "method": "stats",
+        "endpoint": "/stats",
+        "description": "Statistical information for message registers.",
+        "type": "model",
+        "count": {
+          "on": "createdAt",
+          "by": "index"
+        }
+      }
+    ]
+  },
+  "properties": {
+    "subject": {
+      "type": "string"
+    },
+    "msg": {
+      "type": "string"
+    },
+    "senderId": {
+      "type": "string",
+      "required": true
+    },
+    "sender": {
+      "type": "object",
+      "required": true
+    },
+    "receiverId": {
+      "type": "string",
+      "required": true
+    },
+    "receiver": {
+      "type": "object",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "gNiladari": {
+      "type": "belongsTo",
+      "model": "GNiladari",
+      "foreignKey": "messageId"
+    },
+    "person": {
+      "type": "belongsTo",
+      "model": "Person",
+      "foreignKey": "messageId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

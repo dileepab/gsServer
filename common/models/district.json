@@ -1,0 +1,49 @@
+{
+  "name": "District",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": {
+      "required": false
+    },
+    "Stats": [
+      {
+        "method": "stats",
+        "endpoint": "/stats",
+        "description": "Statistical information for District registers.",
+        "type": "model",
+        "count": {
+          "on": "createdAt",
+          "by": "index"
+        }
+      }
+    ]
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "code": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "gNDivisions": {
+      "type": "hasMany",
+      "model": "GNDivision",
+      "foreignKey": "districtId"
+    },
+    "people": {
+      "type": "hasMany",
+      "model": "Person",
+      "foreignKey": "districtId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

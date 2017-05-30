@@ -1,0 +1,54 @@
+{
+  "name": "GNDivision",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "mixins": {
+    "TimeStamp": {
+      "required": false
+    },
+    "Stats": [
+      {
+        "method": "stats",
+        "endpoint": "/stats",
+        "description": "Statistical information for GNDivision registers.",
+        "type": "model",
+        "count": {
+          "on": "createdAt",
+          "by": "index"
+        }
+      }
+    ]
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "code": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "district": {
+      "type": "belongsTo",
+      "model": "District",
+      "foreignKey": "gnDivisionId"
+    },
+    "gNiladaris": {
+      "type": "hasOne",
+      "model": "GNiladari",
+      "foreignKey": "gnDivisionId"
+    },
+    "people": {
+      "type": "hasMany",
+      "model": "Person",
+      "foreignKey": "gnDivisionId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
